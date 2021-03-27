@@ -5,7 +5,7 @@ RUN pip install flask
 
 RUN mkdir /www
 COPY megacorp /www
-WORKDIR /www/megacorp
+WORKDIR /www
 
 CMD python3 -m http.server 80
 
