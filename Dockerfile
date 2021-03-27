@@ -1,18 +1,12 @@
 FROM opensuse/leap
 
-RUN zypper update -y && zypper install -y nano wget
-RUN wget https://download.opensuse.org/repositories/openSUSE:/Factory/standard/noarch/yarn-1.22.10-2.1.noarch.rpm
-RUN zypper install -y yarn-1.22.10-2.1.noarch.rpm 
+RUN zypper update -y && zypper install -y vim wget python python3 python-pip python3-pip
+RUN pip install flask
 
-RUN mkdir /skillbox
-COPY package.json /skillbox
-WORKDIR /skillbox
-RUN yarn install
+RUN mkdir /www
+COPY ./megacorp /www
+WORKDIR /www/megacorp
 
-COPY . /skillbox
-RUN yarn test
-RUN yarn build
+CMD python3 -m http.server 80
 
-CMD yarn start
-
-EXPOSE 3000
+EXPOSE 80
